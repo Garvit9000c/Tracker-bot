@@ -1,17 +1,16 @@
 #include <AFMotor.h>
 #include <Servo.h>
-#include <string.h>
 Servo myservo;
-int rel = 10;
 AF_DCMotor FM(1);
 AF_DCMotor BM(4);
-int bt = -1;
+char bt = 'S';
 void setup()
 {
   Serial.begin(9600);
-  pinMode(rel, OUTPUT);
-  FM.setSpeed(200);
-  BM.setSpeed(200);
+  FM.setSpeed(255);
+  BM.setSpeed(255);
+  FM.run(RELEASE);
+  BM.run(RELEASE);
   myservo.attach(9);
   myservo.write(90);
 }
@@ -21,29 +20,43 @@ void loop() {
 
   bt = Serial.read();
 
-  if (bt == 0)
+  if (bt == '0')
   {
-    f();
+    FM.run(RELEASE);
+    BM.run(RELEASE);
   }
-  if (bt == 180)
+  if (bt == '1')
   {
-    s();
+    FM.run(FORWARD);
+    BM.run(FORWARD);
   }
-  else
+  if (bt == '2')
   {
-    if(bt<180 and bt>0)
-    {
-      myservo.write(bt);
-    }
+    myservo.write(30);
+  }
+  if (bt == '3')
+  {
+    myservo.write(50);
+  }
+  if (bt == '4')
+  {
+    myservo.write(70);
+  }
+  if (bt == '5')
+  {
+    myservo.write(90);
+  }
+  if (bt == '6')
+  {
+    myservo.write(110);
+  }
+  if (bt == '7')
+  {
+    myservo.write(130);
+  }
+  if (bt == '8')
+  {
+    myservo.write(150);
   }
 }
-void f()
-{
-  FM.run(FORWARD);
-  BM.run(FORWARD);
-}
-void s()
-{
-  FM.run(RELEASE);
-  BM.run(RELEASE);
-}
+ 
