@@ -1,7 +1,7 @@
 import cv2
 import urllib.request
 import numpy as np
-import bluetooth
+import bluetooth #pybluez library
 import time
 
 bd_addr ='00:19:09:03:01:6A'
